@@ -9,15 +9,16 @@ bgImageDark: https://theme-hope-assets.vuejs.press/bg/6-dark.svg
 bgImageStyle:
   background-attachment: fixed
 heroText: easy-query
-tagline: 🚀 java下最强ORM没有之一(支持kotlin)</br><span class="vuepress_typed"></span> 
+tagline: 🚀 The Most Powerful ORM in Java(Supports Kotlin)</br><span class="vuepress_typed"></span> 
 actions:
-  - text: 使用指南
+  - text: How to Use
     icon: lightbulb
     link: ./demo/
     type: primary
 
-  - text: 文档
+  - text: Docs
     link: ./guide/
+
 
 highlights:
   # - header: 优雅的dsl
@@ -34,34 +35,34 @@ highlights:
   #     - title: 123
 
 
-  - header: 隐式查询
+  - header: 对象关系
     image: /assets/image/features.svg
     bgImage: https://theme-hope-assets.vuejs.press/bg/1-light.svg
     bgImageDark: https://theme-hope-assets.vuejs.press/bg/1-dark.svg
     highlights:
-      - title: 隐式join
+      - title: Navigate
         icon: network-wired
-        details: OneToOne、ManyToOne 自动实现join查询筛选、排序和结果获取
+        details: 用来描述子属性对象和当前对象的关系
         link: https://theme-hope.vuejs.press/zh/guide/feature/catalog.html
 
-      - title: 隐式子查询
+      - title: OneToOne
         icon: comment-dots
-        details: OneToMany、ManyToMany 自动实现子查询查询筛选、排序和聚合函数结果获取
+        details: 当前对象和目标对象是一对一关系
         link: https://theme-hope.vuejs.press/zh/guide/feature/comment.html
 
-      - title: 隐式分组
+      - title: OneToMany
         icon: circle-info
-        details: OneToMany、ManyToMany 自动实现子查询优化合并将多个子查询合并成一个分组查询支持筛选、排序和聚合函数结果获取
+        details: 当前对象和目标对象是一对多关系
         link: https://theme-hope.vuejs.press/zh/guide/feature/page-info.html
 
-      - title: 隐式分区分组
+      - title: ManyToOne
         icon: lock
-        details: OneToMany、ManyToMany 自动实现第一个、第N个数据的筛选、排序和聚合函数结果获取
+        details: 当前对象和目标对象是多对一关系
         link: https://theme-hope.vuejs.press/zh/guide/feature/encrypt.html
 
-      - title: 隐式CASE WHEN
+      - title: ManyToMany
         icon: code
-        details: 属性.聚合函数.筛选，o.age().sum().filter(()->o.name().like("123"))
+        details: 当前对象和目标对象是多对多关系
         link: https://theme-hope.vuejs.press/zh/guide/feature/search.html
 
   - header: 功能

@@ -1,6 +1,6 @@
 import { sidebar } from "vuepress-theme-hope";
 
-export const enSidebar = sidebar({
+export const cnSidebar = sidebar({
   "/": [
     "",
     "portfolio",
