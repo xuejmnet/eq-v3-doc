@@ -39,3 +39,41 @@
     max-width: none;
     height: 170px;
 }
+
+
+.mermaid-content{
+    // .row-rect-odd{
+    //     .nodeLabel{
+    //         p{
+    //             color: #000;
+    //         }
+    //     }
+    // }
+    .nodeLabel{
+        p{
+            color: #000;
+        }
+    }
+    //  .row-rect-odd{
+    //     path{
+    
+    //         fill: #fff;
+    //         [data-theme="dark"] & {
+    //             fill: #88edc1;
+    //         }
+    //     }
+    // }
+    
+    // path{
+
+    //     fill: #fff;
+    //     [data-theme="dark"] & {
+    //         fill: #000;
+    //     }
+    // }
+    // .divider{
+    //     path{
+    //         fill: #389d70;
+    //     }
+    // }
+}
