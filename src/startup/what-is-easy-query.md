@@ -1,6 +1,5 @@
 ---
 title: easy-query 简介
-icon: fa6-brands:markdown
 order: 1
 category:
   - Startup
@@ -23,7 +22,7 @@ EasyQuery官方QQ群: 170029046
 ## 使用人群
 - 有`sql`基础，会`java stream`或者属性`java lambda`
 - `JPA`或者`Hibernate`用户
-- .net程序员转java的`墙裂`推荐你会拥有和.net orm不一样的体验++
+- .net程序员转java的`墙裂`推荐你会拥有和`.net` orm不一样的体验++
 - 喜欢强类型dsl，厌倦了xml手写字符串sql
 
 ## 使用场景
@@ -38,6 +37,7 @@ EasyQuery官方QQ群: 170029046
 - 群主自己也在生产中使用，并且已经投入使用5个以上项目且稳定运行1-2年之久
 - 出色的性能 哪怕是在其他orm的测试中也拥有非常出色的性能表现
 - 轻量级 拥有零依赖项 框架整体从0到1全部自行实现可控
+- `OLTP`+`OLAP`全方位掌控,`SQL`优化性能怪兽
 
 如果还有人问为什么选择`eq`,那么我可以很负责任的告诉你该框架拥有非常强的强类型和非常强度动态类型,你一定很神奇,`eq`是如何做到的
 

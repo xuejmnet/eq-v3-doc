@@ -1,4 +1,7 @@
 // place your custom styles here
+@media (min-width: 997px){
+    :root{--content-width:1080px}
+}
 .margin-right-home{
     margin-right: 250px;
 }

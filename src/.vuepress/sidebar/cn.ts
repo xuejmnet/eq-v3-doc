@@ -12,7 +12,7 @@ export const cnSidebar = sidebar({
       children: "structure",
     },
     {
-      text: "Demo",
+      text: "案例",
       icon: "laptop-code",
       prefix: "demo/",
       link: "demo/",

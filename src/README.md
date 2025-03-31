@@ -13,7 +13,7 @@ tagline: 🚀 java下最强ORM没有之一(支持kotlin)</br><span class="vuepre
 actions:
   - text: 使用指南
     icon: lightbulb
-    link: ./demo/
+    link: ./startup/
     type: primary
 
   - text: 文档
