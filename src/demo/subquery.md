@@ -1,6 +1,6 @@
 ---
 title: 隐式子查询
-order: 5
+order: 4
 category:
   - Guide
 tag:

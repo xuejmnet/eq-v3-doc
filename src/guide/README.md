@@ -1,6 +1,5 @@
 ---
-title: Guide
-icon: lightbulb
+title: 使用指南说明
 ---
 
 ## Highlight Features
