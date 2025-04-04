@@ -4,40 +4,21 @@ import { cnNavbar, zhNavbar } from "./navbar/index.js";
 import { cnSidebar, zhSidebar } from "./sidebar/index.js";
 
 export default hopeTheme({
-  hostname: "https://vuepress-theme-hope-docs-demo.netlify.app",
+  hostname: "https://github.com/dromara/easy-query",
 
   author: {
     name: "xuejmnet",
     url: "https://github.com/xuejmnet",
   },
 
-  logo: "https://theme-hope-assets.vuejs.press/logo.svg",
+  logo: "/images/logo.svg",
 
-  repo: "vuepress-theme-hope/vuepress-theme-hope",
+  repo: "https://github.com/dromara/easy-query",
 
   docsDir: "src",
 
   locales: {
     "/": {
-      // navbar
-      navbar: cnNavbar,
-
-      // sidebar
-      sidebar: cnSidebar,
-
-      footer: "默认页脚",
-
-      displayFooter: true,
-
-      metaLocales: {
-        editLink: "Edit this page on GitHub",
-      },
-    },
-
-    /**
-     * Chinese locale config
-     */
-    "/zh/": {
       // navbar
       navbar: zhNavbar,
 
@@ -48,11 +29,30 @@ export default hopeTheme({
 
       displayFooter: true,
 
-      // page meta
       metaLocales: {
-        editLink: "在 GitHub 上编辑此页",
+        editLink: "Edit this page on GitHub",
       },
     },
+
+    // /**
+    //  * Chinese locale config
+    //  */
+    // "/zh/": {
+    //   // navbar
+    //   navbar: zhNavbar,
+
+    //   // sidebar
+    //   sidebar: zhSidebar,
+
+    //   footer: "默认页脚",
+
+    //   displayFooter: true,
+
+    //   // page meta
+    //   metaLocales: {
+    //     editLink: "在 GitHub 上编辑此页",
+    //   },
+    // },
   },
 
   encrypt: {
@@ -142,13 +142,13 @@ export default hopeTheme({
   plugins: {
     // Note: This is for testing ONLY!
     // You MUST generate and use your own comment service in production.
-    comment: {
-      provider: "Giscus",
-      repo: "vuepress-theme-hope/giscus-discussions",
-      repoId: "R_kgDOG_Pt2A",
-      category: "Announcements",
-      categoryId: "DIC_kwDOG_Pt2M4COD69",
-    },
+    // comment: {
+    //   provider: "Giscus",
+    //   repo: "vuepress-theme-hope/giscus-discussions",
+    //   repoId: "R_kgDOG_Pt2A",
+    //   category: "Announcements",
+    //   categoryId: "DIC_kwDOG_Pt2M4COD69",
+    // },
 
     components: {
       components: ["Badge", "VPCard"],

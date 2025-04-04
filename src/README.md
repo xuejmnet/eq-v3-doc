@@ -11,13 +11,13 @@ bgImageStyle:
 heroText: easy-query
 tagline: 🚀 java下最强ORM没有之一(支持kotlin)</br><span class="vuepress_typed"></span> 
 actions:
-  - text: 使用指南
+  - text: 开始使用 →
     icon: lightbulb
-    link: ./startup/
+    link: ./startup/what-is-easy-query
     type: primary
 
-  - text: 文档
-    link: ./guide/
+  - text: 爱心支持💡
+    link: ./support
 
 highlights:
   # - header: 优雅的dsl

@@ -72,6 +72,10 @@ Easy Query插件支持将SQL和参数进行格式化成可以执行的SQL。
 <img :src="$withBase('/images/startup6.png')">
 
 ## Entity对象生成
+::: warning 说明!!!
+> 该功能只有企业版本的idea才能支持因为用到的依赖是企业版本idea特有的
+:::
+
 <img :src="$withBase('/images/plugin-database-1.png')">
 
 <img :src="$withBase('/images/plugin-database-2.png')">

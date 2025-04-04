@@ -1,32 +1,31 @@
 import { sidebar } from "vuepress-theme-hope";
 
 export const cnSidebar = sidebar({
-  "/": [
+  "/cn/": [
     "",
-    "portfolio",
+    // "portfolio",
     {
       text: "快速开始",
       icon: "laptop-code",
       prefix: "startup/",
-      link: "startup/",
       children: "structure",
     },
     {
       text: "使用指南",
-      icon: "book",
       prefix: "guide/",
+      collapsible:true,
       children: "structure",
     },
     {
       text: "框架相关",
-      icon: "book",
       prefix: "framework/",
+      collapsible:true,
       children: "structure",
     },
     {
       text: "功能模块",
-      icon: "book",
       prefix: "ability/",
+      collapsible:true,
       children: [
 
         {
@@ -62,16 +61,54 @@ export const cnSidebar = sidebar({
       ],
     },
     {
-      text: "案例",
-      icon: "laptop-code",
-      prefix: "demo/",
-      link: "demo/",
+      text: "计算属性",
+      prefix: "prop/",
+      collapsible:true,
       children: "structure",
     },
     {
-      text: "Slides",
-      icon: "person-chalkboard",
-      link: "https://ecosystem.vuejs.press/plugins/markdown/revealjs/demo.html",
+      text: "code-first",
+      prefix: "code-first/",
+      collapsible:true,
+      children: "structure",
     },
+    {
+      text: "高级",
+      prefix: "adv/",
+      collapsible:true,
+      children: "structure",
+    },
+    {
+      text: "超级",
+      prefix: "super/",
+      collapsible:true,
+      children: "structure",
+    },
+    {
+      text: "案例",
+      prefix: "demo/",
+      collapsible:true,
+      children: "structure",
+    },
+    {
+      text: "实战",
+      prefix: "practice/",
+      collapsible:true,
+      children: [
+        {
+          text: "设计",
+          prefix: "configuration/",
+          collapsible:true,
+          children: "structure",
+        },
+        {
+          text: "apt",
+          prefix: "apt/",
+          collapsible:true,
+          children: "structure",
+        }
+      ],
+    },
+    "support","members"
   ],
 });

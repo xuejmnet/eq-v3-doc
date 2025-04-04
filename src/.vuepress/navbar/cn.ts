@@ -1,10 +1,10 @@
 import { navbar } from "vuepress-theme-hope";
 
 export const cnNavbar = navbar([
-  "/",
+  "/cn/",
   // "/startup/",
   // "/portfolio",
-  "/demo/",
+  "/cn/demo/",
   {
     text: "Guide",
     icon: "lightbulb",

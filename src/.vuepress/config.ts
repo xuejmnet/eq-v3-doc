@@ -12,11 +12,11 @@ export default defineUserConfig({
       title: "文档演示",
       description: "easy-query的文档演示",
     },
-    "/zh/": {
-      lang: "en-US",
-      title: "Docs Demo",
-      description: "A docs demo for easy-query",
-    },
+    // "/zh/": {
+    //   lang: "en-US",
+    //   title: "Docs Demo",
+    //   description: "A docs demo for easy-query",
+    // },
   },
 
   theme,

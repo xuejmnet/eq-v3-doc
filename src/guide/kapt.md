@@ -7,7 +7,7 @@ order: 7
 
 ## 新建项目
 
-<img src="/kapt1.png">
+<img :src="$withBase('/images/kapt1.png')">
 
 ## 添加依赖
 ```xml
@@ -78,10 +78,10 @@ data class
 ```
 ## 编译
 
-<img src="/kapt3.png">
+<img :src="$withBase('/images/kapt3.png')">
 生成代码
 
-<img src="/kapt4.png">
+<img :src="$withBase('/images/kapt4.png')">
 
 ## 运行
 
@@ -144,14 +144,14 @@ java.sql.SQLSyntaxErrorException: Unknown column 'stars2' in 'field list'
 > 如果出现错误`类文件具有错误的版本 55.0, 应为 52.0`请修改项目jdk和pom的一致
 :::
 
-<img src="/kapt2.png">
+<img :src="$withBase('/images/kapt2.png')">
 
 ## 完整的pom
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd')">
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>untitled2</artifactId>

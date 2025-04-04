@@ -222,9 +222,9 @@ List<SchoolClass> list = easyEntityQuery.queryable(SchoolClass.class)
 ```java
 
 List<SchoolClass> list = easyEntityQuery.queryable(SchoolClass.class)
-        //不添加manyJoin框架会生成两个子查询,当我们添加了manyJoin框架就会使用join的方式去进行筛选数据
+        //不添加subQueryToGroupJoin框架会生成两个子查询,当我们添加了subQueryToGroupJoin框架就会使用join的方式去进行筛选数据
         //可以大大的提高在多个子查询下的性能
-        //.manyJoin(s->s.schoolStudents())
+        //.subQueryToGroupJoin(s->s.schoolStudents())
         .where(s -> {
             s.schoolStudents().where(stu -> {
                 stu.name().likeMatchLeft("金");

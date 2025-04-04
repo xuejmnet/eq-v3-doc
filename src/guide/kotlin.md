@@ -69,12 +69,12 @@ class Topic {
 ### 生成代理对象
 将当前项目build后可以再对应的build模块看到对应生产的`TopicProxy`类
 
-<img src="/kt-build.jpg">
+<img :src="$withBase('/images/kt-build.jpg')">
 
 ### 插件快速实现接口
 你如果安装了插件可以通过插件快速时间接口,当然你也可以自己去实现
 
-<img src="/kt-impl.jpg">
+<img :src="$withBase('/images/kt-impl.jpg')">
 
 ### 最终的Topic类
 ```kotlin
