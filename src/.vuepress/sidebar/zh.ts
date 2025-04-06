@@ -23,7 +23,7 @@ export const zhSidebar = sidebar({
       children: "structure",
     },
     {
-      text: "功能模块",
+      text: "crud功能模块",
       prefix: "ability/",
       collapsible:true,
       children: [
@@ -59,6 +59,18 @@ export const zhSidebar = sidebar({
           children: "structure",
         },"insert","update","delete","transaction","insertOrUpdate","batch","dynamic-table-name","reuse","native-sql"
       ],
+    },
+    {
+      text: "导航属性🔥🔥🔥",
+      prefix: "navigate/",
+      collapsible:true,
+      children: "structure",
+    },
+    {
+      text: "内置函数",
+      prefix: "func/",
+      collapsible:true,
+      children: "structure",
     },
     {
       text: "计算属性",

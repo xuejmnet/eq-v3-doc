@@ -50,12 +50,6 @@ long rows = easyEntityQuery.insertable(topics.get(0)).executeRows();
 //返回结果rows为1
 ```
 
-@tab lambda模式
-```java
-long rows = easyQuery.insertable(topics.get(0)).executeRows();
-//返回结果rows为1
-```
-
 ::: 
 
 ```log
@@ -83,11 +77,6 @@ long rows = easyQuery.insertable(topics.get(0)).executeRows();
 long rows = easyEntityQuery.insertable(topics).executeRows();
 //返回结果rows为10
 ```
-@tab lambda模式
-```java
-long rows = easyQuery.insertable(topics).executeRows();
-//返回结果rows为10
-```
 :::
 
 ```log
@@ -110,11 +99,6 @@ long rows = easyQuery.insertable(topics).executeRows();
 @tab 对象模式
 ```java
 long rows = easyEntityQuery.insertable(topics.get(0)).insert(topics.get(1)).executeRows();
-//返回结果rows为2
-```
-@tab lambda模式
-```java
-long rows = easyQuery.insertable(topics.get(0)).insert(topics.get(1)).executeRows();
 //返回结果rows为2
 ```
 :::

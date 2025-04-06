@@ -84,60 +84,6 @@ List<BlogEntity> list = easyEntityQuery.queryable(BlogEntity.class)
 
 ```
 
-@tab lambda模式
-```java
-
-List<BlogEntity> list = easyQuery.queryable(BlogEntity.class)
-        .where(b -> {
-                LambdaSQLFunc<BlogEntity> fx = b.fx();
-                SQLFunction nullOrDefault = fx.nullOrDefault(BlogEntity::getId, "123");
-                b.eq(nullOrDefault,"123");
-
-                SQLFunction subString = fx.subString(BlogEntity::getId, 1, 20);
-                b.eq(subString,"456");
-
-                SQLFunction concat = fx.concat(x -> x.column(BlogEntity::getContent).value("123").column(BlogEntity::getId));
-                b.eq(concat,"789");
-
-                SQLFunction upper = fx.toUpper(BlogEntity::getContent);
-                b.eq(upper,"abc");
-                SQLFunction lower = fx.toLower(BlogEntity::getContent);
-                b.eq(lower,"def");
-
-                SQLFunction trim = fx.trim(BlogEntity::getContent);
-                b.eq(trim,"a");
-
-                SQLFunction trimStart = fx.trimStart(BlogEntity::getContent);
-                b.eq(trimStart,"b");
-                SQLFunction trimEnd = fx.trimEnd(BlogEntity::getContent);
-                b.eq(trimEnd,"c");
-
-                SQLFunction replace = fx.replace(BlogEntity::getContent, "123", "456");
-                b.eq(replace,"aaa");
-
-                SQLFunction leftPad = fx.leftPad(BlogEntity::getContent, 2, 'a');
-                b.eq(leftPad,"aa");
-
-                SQLFunction rightPad = fx.rightPad(BlogEntity::getContent, 2, 'a');
-                b.eq(rightPad,"aa");
-
-                SQLFunction length = fx.length(BlogEntity::getContent);
-                b.eq(length,1);
-
-                SQLFunction stringCompareTo = fx.stringCompareTo(BlogEntity::getContent, "aaaa");
-                b.ge(stringCompareTo,0);
-        }).toList();
-
-
-
-
-
-
-==> Preparing: SELECT `id`,`create_time`,`update_time`,`create_by`,`update_by`,`deleted`,`title`,`content`,`url`,`star`,`publish_time`,`score`,`status`,`order`,`is_top`,`top` FROM `t_blog` WHERE `deleted` = ? AND IFNULL(`id`,?) = ? AND SUBSTR(`id`,2,20) = ? AND CONCAT(`content`,?,`id`) = ? AND UPPER(`content`) = ? AND LOWER(`content`) = ? AND TRIM(`content`) = ? AND LTRIM(`content`) = ? AND RTRIM(`content`) = ? AND REPLACE(`content`,?,?) = ? AND LPAD(`content`, 2, ?) = ? AND RPAD(`content`, 2, ?) = ? AND CHAR_LENGTH(`content`) = ? AND STRCMP(`content`,?) >= ?
-==> Parameters: false(Boolean),123(String),123(String),456(String),123(String),789(String),abc(String),def(String),a(String),b(String),c(String),123(String),456(String),aaa(String),a(String),aa(String),a(String),aa(String),1(Integer),aaaa(String),0(Integer)
-<== Time Elapsed: 6(ms)
-<== Total: 0
-```
 @tab 属性模式
 ```java
 

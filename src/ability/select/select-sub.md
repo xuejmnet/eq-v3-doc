@@ -278,21 +278,6 @@ public class TopicSubQueryBlog implements ProxyEntityAvailable<TopicSubQueryBlog
 
 }
 
-@tab lambda模式
-
-```java
-
-@Data
-public class TopicSubQueryBlog {
-    private String id;
-    private Integer stars;
-    private String title;
-    private LocalDateTime createTime;
-    private Long blogCount;
-}
-
-```
-
 :::
 
 

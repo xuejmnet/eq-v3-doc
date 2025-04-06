@@ -25,28 +25,31 @@ category:
 
 ```mermaid
 erDiagram
-    SYSBANKCARD {
-        STRING id PK
-        STRING uid FK
-        STRING code
-        STRING type
-        STRING bankId FK
+    SysBankCard {
+        String id PK
+        String uid FK
+        String code
+        String type
+        String bankId FK
+        LocalDateTime openTime
     }
     
-    SYSUSER {
-        STRING id PK
-        STRING name
-        STRING phone
-        INTEGER age
+    SysUser {
+        String id PK
+        String name
+        String phone
+        Integer age
+        LocalDateTime createTime
     }
     
-    SYSBANK {
-        STRING id PK
-        STRING name
+    SysBank {
+        String id PK
+        String name
+        LocalDateTime createTime
     }
 
-    SYSBANKCARD }o--|| SYSUSER : "Many-to-One (uid → id)"
-    SYSBANKCARD }o--|| SYSBANK : "Many-to-One (bankId → id)"
+    SysBankCard }o--|| SysUser : "Many-to-One (uid → id)"
+    SysBankCard }o--|| SysBank : "Many-to-One (bankId → id)"
 ```
 
 @tab SysUser
@@ -198,9 +201,51 @@ List<Draft3<String, String, String>> list2 = easyEntityQuery.queryable(SysBankCa
 ==> Parameters: 小明(String),工商银行(String)
 ```
 
+## 动态join
+查询银行卡条件可以传入持卡人姓名或者不传入来筛选结果
+
+以下查询支持动态join,有查询条件那么会自动join用户表否则不会进行join真正做到了`智能orm`
+```java
+
+String queryName=null;
+List<SysBankCard> xmCards = easyEntityQuery.queryable(SysBankCard.class)
+        //如果查询条件不符合那么将不会加入到条件中
+        .filterConfigure(NotNullOrEmptyValueFilter.DEFAULT)
+        .where(bank_card -> {
+            bank_card.user().name().eq(queryName);
+        })
+        .toList();
+
+==> Preparing: SELECT t.`id`,t.`uid`,t.`code`,t.`type`,t.`bank_id`,t.`open_time` FROM `t_bank_card` t
+```
+
+## 混合join
+`eq`不单单支持`显式join`,还支持`隐式join`并且最最最重要的是支持`显式+隐式混合使用`这是其他orm做不到的
+```java
+
+
+List<Draft3<String, String, String>> result = easyEntityQuery.queryable(SysBankCard.class)
+        .filterConfigure(NotNullOrEmptyValueFilter.DEFAULT)
+        .leftJoin(SysBank.class,(bank_card, bank) -> bank_card.bankId().eq(bank.id()))
+        .where((bank_card, bank) -> {
+            bank_card.user().name().eq("小明");
+        })
+        .select((bank_card, bank) -> Select.DRAFT.of(
+                bank_card.code(),
+                bank_card.user().name(),
+                bank.name()
+        )).toList();
+
+
+==> Preparing: SELECT t.`code` AS `value1`,t2.`name` AS `value2`,t1.`name` AS `value3` FROM `t_bank_card` t LEFT JOIN `t_bank` t1 ON t.`bank_id` = t1.`id` LEFT JOIN `t_sys_user` t2 ON t2.`id` = t.`uid` WHERE t2.`name` = ?
+==> Parameters: 小明(String)
+```
+
 
 ## 超强筛选🔥🔥🔥
-筛选出用户拥有至少2张工商银行的银行卡并且还未在建设银行开户的用户
+筛选出用户拥有至少2张工商银行卡且还未在建设银行开户的用户
+
+高级一点的orm写法如下
 ```java
 
 List<SysUser> list = easyEntityQuery.queryable(SysUser.class)
@@ -253,12 +298,14 @@ WHERE
 
 还是上述条件
 
-筛选出用户拥有至少2张工商银行的银行卡并且还未在建设银行开户的用户
+筛选出用户拥有至少2张工商银行卡且还未在建设银行开户的用户
 
+
+超级的orm写法如下
 ```java
 
 List<SysUser> list = easyEntityQuery.queryable(SysUser.class)
-        .subQueryToGroupJoin(u->u.bankCards())//启用隐式group也被叫做subQueryToGroupJoin
+        .subQueryToGroupJoin(u->u.bankCards())//启用隐式group
         .where(user -> {
             //至少2张工商银行
             user.bankCards().where(card -> {
@@ -305,7 +352,7 @@ WHERE
 
 ## partation by
 
-筛选出用户第一张银行卡是工商银行的
+筛选用户条件为喜欢工商银行的(第一张开户的银行卡是工商银行的)
 ```java
 
 List<SysUser> list = easyEntityQuery.queryable(SysUser.class)
@@ -494,43 +541,3 @@ LEFT JOIN
             AND IFNULL(t3.`__none2__`,true) = true
 ```
 
-
-## 动态join
-查询银行卡条件可以传入持卡人姓名或者不传入来筛选结果
-
-以下查询支持动态join,有查询条件那么会自动join用户表否则不会进行join真正做到了`智能orm`
-```java
-
-String queryName=null;
-List<SysBankCard> xmCards = easyEntityQuery.queryable(SysBankCard.class)
-        //如果查询条件不符合那么将不会加入到条件中
-        .filterConfigure(NotNullOrEmptyValueFilter.DEFAULT)
-        .where(bank_card -> {
-            bank_card.user().name().eq(queryName);
-        })
-        .toList();
-
-==> Preparing: SELECT t.`id`,t.`uid`,t.`code`,t.`type`,t.`bank_id`,t.`open_time` FROM `t_bank_card` t
-```
-
-## 混合join
-`eq`不单单支持`显式join`,还支持`隐式join`并且最最最重要的是支持`显式+隐式混合使用`这是其他orm做不到的
-```java
-
-
-List<Draft3<String, String, String>> result = easyEntityQuery.queryable(SysBankCard.class)
-        .filterConfigure(NotNullOrEmptyValueFilter.DEFAULT)
-        .leftJoin(SysBank.class,(bank_card, bank) -> bank_card.bankId().eq(bank.id()))
-        .where((bank_card, bank) -> {
-            bank_card.user().name().eq("小明");
-        })
-        .select((bank_card, bank) -> Select.DRAFT.of(
-                bank_card.code(),
-                bank_card.user().name(),
-                bank.name()
-        )).toList();
-
-
-==> Preparing: SELECT t.`code` AS `value1`,t2.`name` AS `value2`,t1.`name` AS `value3` FROM `t_bank_card` t LEFT JOIN `t_bank` t1 ON t.`bank_id` = t1.`id` LEFT JOIN `t_sys_user` t2 ON t2.`id` = t.`uid` WHERE t2.`name` = ?
-==> Parameters: 小明(String)
-```

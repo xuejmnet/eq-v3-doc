@@ -204,22 +204,4 @@ List<Topic> list = easyEntityQuery.queryable(Topic.class)
 <== Time Elapsed: 4(ms)
 <== Total: 100
 ```
-
-@tab lambda模式
-
-```java
-//SELECT t1.`id` FROM `t_blog` t1 WHERE t1.`deleted` = ? AND t1.`id` = ?
-Queryable<String> idQueryable = easyQuery.queryable(BlogEntity.class)
-            .where(o -> o.eq(BlogEntity::getId, "1"))
-            .select(String.class, o -> o.column(BlogEntity::getId));
-
-List<Topic> list = easyQuery
-        .queryable(Topic.class).where(o -> o.notIn(Topic::getId, idQueryable)).toList();
-
-
-==> Preparing: SELECT t.`id`,t.`stars`,t.`title`,t.`create_time` FROM `t_topic` t WHERE t.`id` NOT IN (SELECT t1.`id` FROM `t_blog` t1 WHERE t1.`deleted` = ? AND t1.`id` = ?)
-==> Parameters: false(Boolean),1(String)
-<== Time Elapsed: 4(ms)
-<== Total: 100
-```
 ::: 

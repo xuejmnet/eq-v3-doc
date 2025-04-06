@@ -91,20 +91,6 @@ List<SchoolStudent> list2 = easyEntityQuery.queryable(SchoolStudent.class)
         .toList();
 ```
 
-@tab lambda模式
-```java
-  List<SchoolStudent> list1 = easyQuery.queryable(SchoolStudent.class)
-                        //一对一查询启用追踪并且对子查询逻辑删除禁用
-                        .include(o -> o.one(SchoolStudent::getSchoolStudentAddress).asTracking().disableLogicDelete())
-                        .toList();
-
-
-  List<SchoolStudent> list1 = easyQuery.queryable(SchoolStudent.class)
-                        //一对一查询启用追踪并且对子查询逻辑删除禁用
-                        //如果查询学生有20个以上假如21个那么会先用20个id进行in查询,再用1个id进行查询最后进行合并
-                        .include(o -> o.one(SchoolStudent::getSchoolStudentAddress,20))
-                        .toList();
-```
 @tab 属性模式
 ```java
   List<SchoolStudent> list1 = easyQueryClient.queryable(SchoolStudent.class)

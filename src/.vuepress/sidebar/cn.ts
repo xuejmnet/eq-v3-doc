@@ -23,7 +23,7 @@ export const cnSidebar = sidebar({
       children: "structure",
     },
     {
-      text: "功能模块",
+      text: "crud功能模块",
       prefix: "ability/",
       collapsible:true,
       children: [
@@ -63,6 +63,12 @@ export const cnSidebar = sidebar({
     {
       text: "计算属性",
       prefix: "prop/",
+      collapsible:true,
+      children: "structure",
+    },
+    {
+      text: "内置函数",
+      prefix: "func/",
       collapsible:true,
       children: "structure",
     },
