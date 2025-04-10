@@ -53,4 +53,13 @@ icon: creative
 
 :::
 
+
+
+
+接口  | 功能  
+---  | --- 
+ValueConverter  | 将数据库和对象值进行互相转换的接口
+\<TProperty>  | 对象属性类型
+\<TProvider>  | 数据库对应的java类型
+
 -->

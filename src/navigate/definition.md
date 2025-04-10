@@ -16,11 +16,257 @@ order: 1
 
 接下来我将展示如何定义导航属性来支持复杂关系
 
+支持任意对象为视角构建目标表关系,支持循环构建,导航属性默认不参与
+
+## Navigate
+
+
+
+属性 | 类型   | 作用  
+---  | ---  | --- 
+value  | RelationTypeEnum | 用来描述具体关系类型比如` @Navigate(value = RelationTypeEnum.OneToMany)`
+selfProperty  | String[]  | 和目标对象关联时使用的自身属性支持多个,如果添加多个则按数组索引一一对应,如果不填写则表示为当前表的主键(必须是一个主键时才可以不填写),长度必须和`targetProperty`或`selfMappingProperty`一致
+targetProperty  | String[]  | 和自身对象关联时使用的目标属性支持多个,如果添加多个则按数组索引一一对应,如果不填写则表示为目标表的主键(必须是一个主键时才可以不填写),长度必须和`selfProperty`或`targetMappingProperty`一致
+mappingClass  | Class<?>  | 多对多时使用的中间表,填写对应的中间表class,比如`User Role UserRole`则填写`UserRole.class`
+selfMappingProperty  | String[]  | 多对多时使用的中间表属性和当前表的`selfProperty`关联的属性,支持多个，长度和`selfProperty`一样
+targetMappingProperty  | String[]  | 多对多时使用的中间表属性和当前表的`targetProperty`关联的属性,支持多个，长度和`targetProperty`一样
+propIsProxy  | boolean  | 设置为true即可,历史原因兼容非entity模式和entity模式
+orderByProps  | OrderByProperty[]  | toMany，用于拉取数据的时候对子表进行排序
+offset  | long  | toMany，用于拉取数据的时候对子表进行排序
+limit  | long  | toMany，用于拉取数据的时候对子表进行排序
+extraFilter  | Class<? extends NavigateExtraFilterStrategy>  | 额外筛选支持中间表和目标表
+directMapping  | String[]  | 用于合并多个ToOne
+relationPropertyStrategy  | String | 自定义关联关系时用于手动指定条件比如你是逗号分割那么不是以等于符号进行判断可能会用like左匹配或者findInSet这种方言函数
+
 ## 一对一
+一对一本质是特殊的多对一关系,常用于垂直分表领域,比如用户和用户的扩展信息表
 
-## 一对多
+::: tabs
+@tab 关系图
 
-## 多对一
+```mermaid
+erDiagram
+    SysUser {
+        String id PK
+        String name
+        Integer age
+        String phone
+        String idCard
+        LocalDateTime createTime
+    }
+    
+    SysUserExtra {
+        String id PK
+        String uid FK
+        String province
+        String city
+        String address
+    }
 
-## 其他
+    SysUser ||--|| SysUserExtra : "One-to-One (id → uid)"
+```
+
+@tab SysUser
+```java
+
+@Table("t_sys_user")
+@EntityProxy
+@Data
+@FieldNameConstants
+@EasyAlias("user")
+public class SysUser implements ProxyEntityAvailable<SysUser , SysUserProxy> {
+    @Column(primaryKey = true)
+    private String id;
+    private String name;
+    private Integer age;
+    private String phone;
+    private String idCard;
+    private LocalDateTime createTime;
+
+    /**
+     * 用户其余额外信息
+     */
+    @Navigate(value = RelationTypeEnum.OneToOne, selfProperty = {"id"}, targetProperty = {"uid"})
+    private SysUserExtra userExtra;
+}
+
+```
+
+@tab SysBankCard
+```java
+
+@Table("t_user_extra")
+@EntityProxy
+@Data
+@FieldNameConstants
+@EasyAlias("user_extra")
+public class SysUserExtra implements ProxyEntityAvailable<SysUserExtra , SysUserExtraProxy> {
+    @Column(primaryKey = true)
+    private String id;
+    private String uid;
+    @ForeignKey//可以不加
+    private String province;
+    private String city;
+    private String address;
+
+
+    /**
+     * 用户其余额外信息
+     */
+    @Navigate(value = RelationTypeEnum.OneToOne, selfProperty = {"uid"}, targetProperty = {"id"})
+    private SysUser user;
+}
+
+```
+
+:::
+
+从图表我们可以看出`SysUser.id -> SysUserExtra.uid`一致的情况下那么两者进行关联,我们在`SysUser`这个类中所有的`SysUser的属性`都是`selfProperty`而且所有的`SysUserExtra`下的属性都称之为`targetProperty`,当然我们不但可以在`SysUser`中定义`SysUserExtra`反之亦可以所有的关系都是允许双向定义的
+
+
+
+## 多对一和一对多
+
+::: tabs
+@tab 关系图
+
+```mermaid
+erDiagram
+    SysBankCard {
+        String id PK
+        String uid FK
+        String code
+        String type
+        String bankId FK
+        LocalDateTime openTime
+    }
+    
+    SysUser {
+        String id PK
+        String name
+        String phone
+        Integer age
+        LocalDateTime createTime
+    }
+    
+    SysBank {
+        String id PK
+        String name
+        LocalDateTime createTime
+    }
+
+    SysBankCard }o--|| SysUser : "Many-to-One (uid → id)"
+    SysBankCard }o--|| SysBank : "Many-to-One (bankId → id)"
+```
+
+@tab SysUser
+```java
+
+@Table("t_sys_user")
+@EntityProxy
+@Data
+@FieldNameConstants
+@EasyAlias("user")
+public class SysUser implements ProxyEntityAvailable<SysUser , SysUserProxy> {
+    @Column(primaryKey = true)
+    private String id;
+    private String name;
+    private String phone;
+    private Integer age;
+    private LocalDateTime createTime;
+
+    /**
+     * 用户拥有的银行卡数
+     */
+    @Navigate(value = RelationTypeEnum.OneToMany, selfProperty = {"id"}, targetProperty = {"uid"})
+    private List<SysBankCard> bankCards;
+}
+
+```
+
+@tab SysBankCard
+```java
+
+@Table("t_bank_card")
+@EntityProxy
+@Data
+@FieldNameConstants
+@EasyAlias("bank_card")
+public class SysBankCard implements ProxyEntityAvailable<SysBankCard , SysBankCardProxy> {
+    @Column(primaryKey = true)
+    private String id;
+    private String uid;
+    /**
+     * 银行卡号
+     */
+    private String code;
+    /**
+     * 银行卡类型借记卡 储蓄卡
+     */
+    private String type;
+    /**
+     * 所属银行
+     */
+    @ForeignKey
+    private String bankId;
+    /**
+     * 用户开户时间
+     */
+    private LocalDateTime openTime;
+
+    /**
+     * 所属银行
+     */
+    @Navigate(value = RelationTypeEnum.ManyToOne, selfProperty = {"bankId"}, targetProperty = {"id"})
+    private SysBank bank;
+
+    /**
+     * 所属用户
+     */
+    @Navigate(value = RelationTypeEnum.ManyToOne, selfProperty = {"uid"}, targetProperty = {"id"})
+    private SysUser user;
+}
+
+
+```
+
+@tab SysBank
+```java
+
+@Table("t_bank")
+@EntityProxy
+@Data
+@FieldNameConstants
+@EasyAlias("bank")
+public class SysBank implements ProxyEntityAvailable<SysBank, SysBankProxy> {
+    @Column(primaryKey = true)
+    private String id;
+    /**
+     * 银行名称
+     */
+    private String name;
+    /**
+     * 成立时间
+     */
+    private LocalDateTime createTime;
+
+    /**
+     * 拥有的银行卡
+     */
+    @Navigate(value = RelationTypeEnum.OneToMany,
+            selfProperty = {"id"},
+            targetProperty = {"bankId"})
+    private List<SysBankCard> bankCards;
+}
+
+```
+
+:::
+
+通过上述关系图我们可以清晰地看到`银行 1:N 银行卡`，`银行卡 N:1 用户`,每个银行都可以发行多张银行卡,每个用户也可以拥有多张银行卡,对于银行卡而言就是多张银行卡关联到一个用户上面
+
+
+
+
+## 其他关系
 由于篇幅关系,多对多喝直接映射，路径映射，逗号冗余等映射将会用单独篇章展示

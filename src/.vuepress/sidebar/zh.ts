@@ -79,6 +79,12 @@ export const zhSidebar = sidebar({
       children: "structure",
     },
     {
+      text: "子查询",
+      prefix: "sub-query/",
+      collapsible:true,
+      children: "structure",
+    },
+    {
       text: "code-first",
       prefix: "code-first/",
       collapsible:true,

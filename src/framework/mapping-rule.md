@@ -18,9 +18,9 @@ order: 6
 
 | 方法                                                      | 描述                                                         |
 | --------------------------------------------------------- | ------------------------------------------------------------ |
+| PROPERTY_FIRST(推荐)                   | `A.property == AVO.property` 如果匹配不到并且AVO是函数则通过   `convert(A.property)==convert(AVO.property)`再次匹配比          |
 | COLUMN_ONLY                                           | `convert(A.property)==convert(AVO.property)` |
 | PROPERTY_ONLY                   | `A.property==AVO.property`                                                     |
-| PROPERTY_FIRST                   | `A.property == AVO.property` 如果匹配不到并且AVO是函数则通过   `convert(A.property)==convert(AVO.property)`再次匹配比          |
 | COLUMN_AND_PROPERTY              | `findNull(convert(A.property),A.property)==findNull(convert(AVO.property),AVO.property)`  |
 
 ## 实体和结果
