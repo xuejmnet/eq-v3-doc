@@ -104,7 +104,6 @@ public class SysUserExtra implements ProxyEntityAvailable<SysUserExtra , SysUser
     @Column(primaryKey = true)
     private String id;
     private String uid;
-    @ForeignKey//可以不加
     private String province;
     private String city;
     private String address;
@@ -114,6 +113,7 @@ public class SysUserExtra implements ProxyEntityAvailable<SysUserExtra , SysUser
      * 用户其余额外信息
      */
     @Navigate(value = RelationTypeEnum.OneToOne, selfProperty = {"uid"}, targetProperty = {"id"})
+    @ForeignKey//可以不加 加了就是InnerJoin处理更多细节查看注解篇章
     private SysUser user;
 }
 
@@ -207,7 +207,6 @@ public class SysBankCard implements ProxyEntityAvailable<SysBankCard , SysBankCa
     /**
      * 所属银行
      */
-    @ForeignKey
     private String bankId;
     /**
      * 用户开户时间
@@ -218,6 +217,7 @@ public class SysBankCard implements ProxyEntityAvailable<SysBankCard , SysBankCa
      * 所属银行
      */
     @Navigate(value = RelationTypeEnum.ManyToOne, selfProperty = {"bankId"}, targetProperty = {"id"})
+    @ForeignKey//可以不加 加了就是InnerJoin处理更多细节查看注解篇章
     private SysBank bank;
 
     /**

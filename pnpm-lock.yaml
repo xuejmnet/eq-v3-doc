@@ -11,6 +11,9 @@ importers:
       '@vuepress/bundler-vite':
         specifier: 2.0.0-rc.19
         version: 2.0.0-rc.19(@types/node@22.13.4)(sass-embedded@1.85.0)
+      '@vuepress/helper':
+        specifier: 2.0.0-rc.92
+        version: 2.0.0-rc.92(vuepress@2.0.0-rc.19(@vuepress/bundler-vite@2.0.0-rc.19(@types/node@22.13.4)(sass-embedded@1.85.0))(vue@3.5.13))
       mermaid:
         specifier: ^11.5.0
         version: 11.5.0
@@ -927,6 +930,9 @@ packages:
   '@types/web-bluetooth@0.0.20':
     resolution: {integrity: sha512-g9gZnnXVq7gM7v3tJCWV/qw7w+KeOlSHAhgF9RytFyifW6AF61hdT2ucrYhPq9hLs5JIryeupHV3qGk95dH9ow==}
 
+  '@types/web-bluetooth@0.0.21':
+    resolution: {integrity: sha512-oIQLCGWtcFZy2JW77j9k8nHzAOpqMHLQejDA48XXMWH6tjCQHz5RCFz1bzsmROyL6PUm+LLnUiI4BCn221inxA==}
+
   '@ungap/structured-clone@1.3.0':
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
 
@@ -998,6 +1004,11 @@ packages:
     resolution: {integrity: sha512-k0FjkM9TKggcWkyZwXj4cLUIF3FBJ5iZGnC+Ln4OJVGD7k3SvT7TL7IaCZoFBIXTlepZwytsIN7K5Lbmpx0GfQ==}
     peerDependencies:
       vuepress: 2.0.0-rc.19
+
+  '@vuepress/helper@2.0.0-rc.92':
+    resolution: {integrity: sha512-lwJd9x4tHZdkEwl+WM6XioNm1SoalA8g3+aHBybww2Zuohwm9sByh+xgV+NIvbbfO8LoAnj+h0SvhXQlD9PY8A==}
+    peerDependencies:
+      vuepress: 2.0.0-rc.20
 
   '@vuepress/highlighter-helper@2.0.0-rc.71':
     resolution: {integrity: sha512-Hi9ira4VmX1MuRcagbSIZ/hHtwB4Fduz/NfiFGmOYX68zWIsQ1e90Ntku8GeI2MEDWlFxGU8PY/7VcXwINjoXQ==}
@@ -1188,11 +1199,24 @@ packages:
   '@vueuse/core@12.6.1':
     resolution: {integrity: sha512-FpgM1tXGAHsAC5n4Tflyg0vSoJUmdevfKaAhKFdxiK9BTIdHOHOiWmo+xivwdzjYFIvI8cEeJWYuqs646jOM2w==}
 
+  '@vueuse/core@13.1.0':
+    resolution: {integrity: sha512-PAauvdRXZvTWXtGLg8cPUFjiZEddTqmogdwYpnn60t08AA5a8Q4hZokBnpTOnVNqySlFlTcRYIC8OqreV4hv3Q==}
+    peerDependencies:
+      vue: ^3.5.0
+
   '@vueuse/metadata@12.6.1':
     resolution: {integrity: sha512-2094HNXGdsU3aqRbad0vmlRgGncMC4u2f6nFdW1mUn7b7ym4hORrDZfyeq8G5BfGvX4y0zZynWfCdtB2WwpyVw==}
 
+  '@vueuse/metadata@13.1.0':
+    resolution: {integrity: sha512-+TDd7/a78jale5YbHX9KHW3cEDav1lz1JptwDvep2zSG8XjCsVE+9mHIzjTOaPbHUAk5XiE4jXLz51/tS+aKQw==}
+
   '@vueuse/shared@12.6.1':
     resolution: {integrity: sha512-ukTb2na19KT1/YVjj4CYBDOgiV/xmsSJRL6TcKeiz2db+P5bT3I0OJxy38eRR3WSN8CmSnt7MdVJ16vX6VZFxg==}
+
+  '@vueuse/shared@13.1.0':
+    resolution: {integrity: sha512-IVS/qRRjhPTZ6C2/AM3jieqXACGwFZwWTdw5sNTSKk2m/ZpkuuN+ri+WCVUP8TqaKwJYt/KuMwmXspMAw8E6ew==}
+    peerDependencies:
+      vue: ^3.5.0
 
   acorn@8.14.1:
     resolution: {integrity: sha512-OvQ/2pUDKmgfCg++xsTX1wGxfTaszcHVcTctW4UJB4hibJx2HXxxO5UmVgyjMa+ZDsiaf5wWLXYpRWMmBI0QHg==}
@@ -3440,6 +3464,8 @@ snapshots:
 
   '@types/web-bluetooth@0.0.20': {}
 
+  '@types/web-bluetooth@0.0.21': {}
+
   '@ungap/structured-clone@1.3.0': {}
 
   '@vitejs/plugin-vue@5.2.1(vite@6.0.11(@types/node@22.13.4)(sass-embedded@1.85.0))(vue@3.5.13)':
@@ -3601,6 +3627,18 @@ snapshots:
     dependencies:
       '@vue/shared': 3.5.13
       '@vueuse/core': 12.6.1
+      cheerio: 1.0.0
+      fflate: 0.8.2
+      gray-matter: 4.0.3
+      vue: 3.5.13
+      vuepress: 2.0.0-rc.19(@vuepress/bundler-vite@2.0.0-rc.19(@types/node@22.13.4)(sass-embedded@1.85.0))(vue@3.5.13)
+    transitivePeerDependencies:
+      - typescript
+
+  '@vuepress/helper@2.0.0-rc.92(vuepress@2.0.0-rc.19(@vuepress/bundler-vite@2.0.0-rc.19(@types/node@22.13.4)(sass-embedded@1.85.0))(vue@3.5.13))':
+    dependencies:
+      '@vue/shared': 3.5.13
+      '@vueuse/core': 13.1.0(vue@3.5.13)
       cheerio: 1.0.0
       fflate: 0.8.2
       gray-matter: 4.0.3
@@ -3940,13 +3978,26 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
+  '@vueuse/core@13.1.0(vue@3.5.13)':
+    dependencies:
+      '@types/web-bluetooth': 0.0.21
+      '@vueuse/metadata': 13.1.0
+      '@vueuse/shared': 13.1.0(vue@3.5.13)
+      vue: 3.5.13
+
   '@vueuse/metadata@12.6.1': {}
+
+  '@vueuse/metadata@13.1.0': {}
 
   '@vueuse/shared@12.6.1':
     dependencies:
       vue: 3.5.13
     transitivePeerDependencies:
       - typescript
+
+  '@vueuse/shared@13.1.0(vue@3.5.13)':
+    dependencies:
+      vue: 3.5.13
 
   acorn@8.14.1: {}
 

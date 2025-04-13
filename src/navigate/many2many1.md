@@ -10,31 +10,7 @@ order: 5
 
 ::: tabs
 @tab 关系图
-```mermaid
-erDiagram
-    SysUser ||--o{ UserRole : "One-to-Many (id → userId)"
-    SysRole ||--o{ UserRole : "One-to-Many (id → roleId)"
-
-    SysUser {
-        String id PK
-        String companyId
-        String name
-        Integer age
-        LocalDateTime createTime
-    }
-
-    SysRole {
-        String id PK
-        string name
-        LocalDateTime createTime
-    }
-
-    UserRole {
-        String id PK
-        String userId
-        String roleId
-    }
-```
+<img :src="$withBase('/images/user_role.svg')">
 
 @tab SysUser
 ```java

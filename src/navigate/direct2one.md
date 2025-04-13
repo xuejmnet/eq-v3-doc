@@ -13,62 +13,6 @@ order: 7
 @tab 关系图
 <img :src="$withBase('/images/directmapping.svg')">
 
-
-
-<img v-if="$isDarkMode" :src="$withBase('/images/dark.svg')">
-
-
-
-<img v-else :src="$withBase('/images/light.svg')">
-
-@tab 关系图
-```mermaid
-erDiagram
-    Direct1 ||--|| Direct2 : "One-to-One (c1 → c7)"
-    Direct2 }o--|| Direct3 : "Many-to-One ([c8,c9] → [c13,c14])"
-    Direct3 }o--|| Direct4 : "Many-to-One (c15 → c20)"
-    Direct4 ||--|| Direct5 : "One-to-One ([c16,c18] → [c22,c21])"
-
-    Direct1 {
-        String c1 PK
-        String c2
-        String c3
-        String c4
-        String c5
-    }
-
-
-    Direct2 {
-        String c6 PK
-        String c7
-        String c8
-        String c9
-        String c10
-    }
-
-    Direct3 {
-        String c11 PK
-        String c12
-        String c13
-        String c14
-        String c15
-    }
-    Direct4 {
-        String c16 PK
-        String c17
-        String c18
-        String c19
-        String c20
-    }
-    Direct5 {
-        String c21 PK
-        String c22
-        String c23
-        String c24
-        String c25
-    }
-```
-
 @tab Direct1
 ```java
 
@@ -171,3 +115,49 @@ public class Direct5 implements ProxyEntityAvailable<Direct5, Direct5Proxy> {
 ```
 
 :::
+
+
+## directMapping
+
+类型为数组,内容为下一个ToOne导航对象要跳过的属性名
+
+## 案例使用
+在配置上和原先的隐式join一致并且支持原先所有的配置,且多个不同的direct之间也会互相合并我使用direct5和direct4中间的`direct1...4`并不会重复
+```java
+
+
+List<Draft1<String>> list = easyEntityQuery.queryable(Direct1.class)
+        .where(d -> {
+            d.direct5().c22().eq("123");
+        }).select(d -> Select.DRAFT.of(
+                d.direct4().c18()
+        )).toList();
+
+
+
+-- 第1条sql数据
+SELECT
+    t3.`c18` AS `value1` 
+FROM
+    `direct1` t 
+LEFT JOIN
+    `direct2` t1 
+        ON t1.`c7` = t.`c1` 
+LEFT JOIN
+    `direct3` t2 
+        ON (
+            t2.`c13` = t1.`c8` 
+            AND t2.`c14` = t1.`c9`
+        ) 
+LEFT JOIN
+    `direct4` t3 
+        ON t3.`c20` = t2.`c15` 
+LEFT JOIN
+    `direct5` t4 
+        ON (
+            t4.`c22` = t3.`c16` 
+            AND t4.`c21` = t3.`c18`
+        ) 
+WHERE
+    t4.`c22` = '123'
+```
