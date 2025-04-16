@@ -43,7 +43,7 @@ List<String> list = easyEntityQuery.queryable(DocBankCard.class)
 
 ## nullEmpty
 
-默认的nullOrDefault的语法糖,效果与`nullOrDefault("")`一致,具体可以跳转[nullOrDefault](../../func/general)章节
+默认的nullOrDefault的语法糖,效果与`nullOrDefault("")`一致,具体可以跳转[nullOrDefault](/easy-query-doc/func/general)章节
 
 
 ## toLower | toUpper

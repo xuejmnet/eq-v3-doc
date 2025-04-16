@@ -221,7 +221,7 @@ for (Draft7<LocalDateTime, Integer, Integer, Integer, Integer, Integer, Integer>
 ## 获取时间间隔(duration)
 获取两个时间的间隔，默认 `before.duration(after)`返回正数,如果相反则返回负数,如果希望返回的是正数可以使用math函数`before.duration(after).toDays().abs()`
 
-[更多`Math`函数请查看](../../func/math)
+[更多`Math`函数请查看](/easy-query-doc/func/math)
 ```java
 
 LocalDateTime time2025 = LocalDateTime.of(2025, 1, 1, 0, 0, 0);

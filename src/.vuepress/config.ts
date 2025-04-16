@@ -4,7 +4,7 @@ import vuepressPluginTypedjs2 from "vuepress-plugin-typedjs2";
 import theme from "./theme.js";
 
 export default defineUserConfig({
-  base: "/",
+  base: "/easy-query-doc/",
 
   locales: {
     "/": {
