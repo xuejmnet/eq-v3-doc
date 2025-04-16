@@ -10,25 +10,7 @@ order: 6
 
 ::: tabs
 @tab 关系图
-```mermaid
-erDiagram
-    UserAccount ||--o{ UserBook : "Many-to-Many (uid → uid)"
-
-
-    UserAccount {
-        String id PK
-        string uid
-        string name
-        LocalDateTime createTime
-    }
-
-    UserBook {
-        String id PK
-        String uid
-        String name
-        BigDecimal price
-    }
-```
+<img :src="$withBase('/images/many2many2.svg')">
 
 @tab UserAccount
 ```java

@@ -37,14 +37,22 @@ PGSQL  | COUNT
 ORACLE  | COUNT
 
 
+聚合函数`filter`支持额外操作隐式case when
+
 用法
 
 
 ```java
-List<Draft2<Long, Long>> list = easyEntityQuery.queryable(DocBankCard.class)
-        .select(bank_card -> Select.DRAFT.of(
-                bank_card.id().count(),
-                bank_card.id().count(true)
+
+List<Draft3<Long, Long, Long>> list = easyEntityQuery.queryable(BlogEntity.class)
+        .where(t_blog -> {
+            t_blog.content().like("abc");
+        }).select(t_blog -> Select.DRAFT.of(
+                t_blog.id().count(),//count(id)
+                t_blog.title().count(true),//count(distinct title)
+                t_blog.title().count().filter(() -> {//title求不是恐怖的标题的数量
+                    t_blog.title().ne("恐怖");
+                })
         )).toList();
 ```
 
@@ -59,12 +67,20 @@ MSSQL  | MAX | MIN
 PGSQL  | MAX | MIN
 ORACLE  | MAX | MIN
 
+
+聚合函数`filter`支持额外操作隐式case when
+
 ```java
-List<Draft2<String, String>> list = easyEntityQuery.queryable(DocBankCard.class)
-        .select(bank_card -> Select.DRAFT.of(
-                bank_card.id().max(),
-                bank_card.id().min()
-        )).toList();
+
+    easyEntityQuery.queryable(BlogEntity.class)
+            .where(t_blog -> {
+                t_blog.content().like("abc");
+            }).select(t_blog -> Select.DRAFT.of(
+                    t_blog.score().max(),//max(id)
+                    t_blog.score().max().filter(() -> {//title求不是恐怖的标题的最大分数
+                        t_blog.title().ne("恐怖");
+                    })
+            )).toList();
 ```
 
 

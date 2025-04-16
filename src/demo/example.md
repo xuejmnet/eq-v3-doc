@@ -168,7 +168,7 @@ List<SchoolClass> list = easyEntityQuery.queryable(SchoolClass.class)
                 }).toList();
 
 //联级穿透 flatElement后仅支持但条件判断,多条件会生成多个Exists函数
-//所以如果存在多条件还是建议使用where来处理 flatElement支持多层级穿透
+//所以如果存在多条件还是建议使用where或any来处理 flatElement支持多层级穿透
 List<SchoolClass> list = easyEntityQuery.queryable(SchoolClass.class)
                 .where(s -> {
                     //展开schoolStudents集合穿透到下方直接判断名称
@@ -420,12 +420,12 @@ List<SchoolClassVO> listx= easyEntityQuery.queryable(SchoolClass.class)
 ## 案例9进阶
 手动创建VO是很复杂的一件事情,可以再`easy-query:1.10.60^`+`插件0.0.48^`快速生成嵌套结构化对象模型,
 
-<img src="/EQDTO1.jpg">
-<img src="/EQDTO2.jpg">
-<img src="/EQDTO3.jpg">
-<img src="/EQDTO4.jpg">
-<img src="/EQDTO5.jpg">
-<img src="/EQDTO6.jpg">
+<img :src="$withBase('/images/EQDTO1.jpg')">
+<img :src="$withBase('/images/EQDTO2.jpg')">
+<img :src="$withBase('/images/EQDTO3.jpg')">
+<img :src="$withBase('/images/EQDTO4.jpg')">
+<img :src="$withBase('/images/EQDTO5.jpg')">
+<img :src="$withBase('/images/EQDTO6.jpg')">
 
 
 ## 高级扩展

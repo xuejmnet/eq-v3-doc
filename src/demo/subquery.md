@@ -159,7 +159,7 @@ List<SchoolClass> list = easyEntityQuery.queryable(SchoolClass.class)
                 }).toList();
 
 //联级穿透 flatElement后仅支持但条件判断,多条件会生成多个Exists函数
-//所以如果存在多条件还是建议使用where来处理 flatElement支持多层级穿透
+//所以如果存在多条件还是建议使用where或any来处理 flatElement支持多层级穿透
 List<SchoolClass> list = easyEntityQuery.queryable(SchoolClass.class)
                 .where(s -> {
                     //展开schoolStudents集合穿透到下方直接判断名称

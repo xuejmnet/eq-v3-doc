@@ -494,10 +494,18 @@ List<Draft2<String, String>> list = easyEntityQuery.queryable(SysUser.class)
         .subQueryToGroupJoin(x -> x.bankCards())
         .where(user -> {
             user.name().like("小明");
-            user.bankCards().where(x -> x.type().eq("储蓄卡")).orderBy(x -> x.openTime().asc()).elements(0, 2).none(x -> x.bank().createTime().ge(LocalDateTime.of(2000,1,1,0,0)));
+
+            user.bankCards()
+                .where(x -> x.type().eq("储蓄卡"))
+                .orderBy(x -> x.openTime().asc()).elements(0, 2)
+                .none(x -> x.bank().createTime().ge(LocalDateTime.of(2000,1,1,0,0)));
+
         }).select(user -> Select.DRAFT.of(
                 user.name(),
-                user.bankCards().where(x -> x.type().eq("储蓄卡")).orderBy(x -> x.openTime().asc()).elements(0, 2).joining(x -> x.bank().name(),",")
+                user.bankCards()
+                    .where(x -> x.type().eq("储蓄卡"))
+                    .orderBy(x -> x.openTime().asc())
+                    .elements(0, 2).joining(x -> x.bank().name(),",")
         )).toList();
 
 

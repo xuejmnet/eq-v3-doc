@@ -1,6 +1,8 @@
 ---
 title: 跨表计算属性
 order: 9
+category:
+  - sql
 ---
 
 ## 跨表计算属性

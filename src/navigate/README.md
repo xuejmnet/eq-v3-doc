@@ -14,3 +14,5 @@ title: 导航属性
 可以极大的满足用户的日常需要,并且可以保证完美的使用适配框架
 
 使用导航属性可以极大地方便用户的日常开发，并且在隐式join的时候还允许动态join这是手动join做不到的
+
+默认隐式Join和隐式子查询均为`LEFT JOIN`可以设置`Navigate(required=true)` 或者`ToOne`的时候在`@Naivgate`处添加`@ForeignKey` 那么隐式关系就会变成`INNER JOIN`

@@ -144,19 +144,20 @@ List<DocBankCard> list = easyEntityQuery.queryable(DocBankCard.class)
 
 参数  | 说明  
 ---  | --- 
-delimiter  | 分隔符比如`,`或者`|`
+delimiter  | 分隔符比如`,`或者`\|`
 distinct  | 是否去重(部分数据库不支持)
 
 ```java
 
-List<Draft3<String, String, String>> list = easyEntityQuery.queryable(DocBankCard.class)
+List<Draft4<String, String, String, String>> list = easyEntityQuery.queryable(DocBankCard.class)
         .groupBy(bank_card -> GroupKeys.of(bank_card.code()))
         .select(group -> Select.DRAFT.of(
                 group.key1(),
                 //银行卡按编号分组，并且分组后将类型是是储蓄卡，用户姓名，用逗号分隔
                 group.where(o -> o.type().eq("储蓄卡")).distinct().joining(x -> x.user().name(), ","),
                 //简单暴力将银行id用逗号分隔
-                group.groupTable().bankId().joining(",",true)
+                group.groupTable().bankId().joining(",",true),
+                group.groupTable().bankId().joining(",",true).filter(() -> group.groupTable().type().eq("储蓄卡"))
         )).toList();
 ```
 
