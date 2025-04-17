@@ -139,20 +139,20 @@ public class SysUserBook implements ProxyEntityAvailable<SysUserBook , SysUserBo
 
 返回数据结构为 银行:{银行卡:[{用户:{用户有多少书本，用户最贵的那一本是哪一本}}]}
 
-### 创建dto
-1.右键包名->CreateStructDTO
+## 创建dto
+### 1.右键包名->CreateStructDTO
 
 <img :src="$withBase('/images/extra_step_1.jpg')">
 
-2.选中聚合节点
+### 2.选中聚合节点
 
 <img :src="$withBase('/images/extra_step_2.jpg')">
 
-3.选中要返回的属性
+### 3.选中要返回的属性
 
 <img :src="$withBase('/images/extra_step_3.jpg')">
 
-4.输入dto名称
+### 4.输入dto名称
 其中文件头部的@link别去掉,插件可以通过这个标识来帮助用户进行检查dto是否有错误
 
 ```java
@@ -238,7 +238,7 @@ public class SysBankDTO {
 
 ```
 
-5.修改文件对`InternalUser`添加书籍数量和最贵书籍的名称和价格
+### 5.修改文件对`InternalUser`添加书籍数量和最贵书籍的名称和价格
 `@SuppressWarnings("EasyQueryFieldMissMatch")`用来抑制插件警告，当前属性不存在`SysUser`对象中
 ```java
 

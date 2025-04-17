@@ -1,5 +1,6 @@
 import { defineUserConfig } from "vuepress";
 import vuepressPluginTypedjs2 from "vuepress-plugin-typedjs2";
+// import { docsearchPlugin } from '@vuepress/plugin-docsearch'
 
 import theme from "./theme.js";
 
@@ -34,6 +35,21 @@ export default defineUserConfig({
       backSpeed: 0, // 回退速度
       loop: true, // 循环
     }),
+    // docsearchPlugin({
+    //   appId: "CPA56QJD7T",
+    //   apiKey: "5b2c36f4caaaee20e10ec50f0e048d46",
+    //   indexName: "easy-query",
+    //   locales: {
+    //     '/zh/': {
+    //       placeholder: '搜索文档',
+    //       translations: {
+    //         button: {
+    //           buttonText: '搜索文档',
+    //         },
+    //       },
+    //     },
+    //   },
+    // }),
   ]
   // Enable it with pwa
   // shouldPrefetch: false,

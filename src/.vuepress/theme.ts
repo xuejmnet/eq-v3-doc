@@ -153,6 +153,21 @@ export default hopeTheme({
     components: {
       components: ["Badge", "VPCard"],
     },
+    docsearch:{
+      appId: "CPA56QJD7T",
+      apiKey: "5b2c36f4caaaee20e10ec50f0e048d46",
+      indexName: "easy-query",
+      locales: {
+        '/': {
+          placeholder: '搜索文档',
+          translations: {
+            button: {
+              buttonText: '搜索文档',
+            },
+          },
+        },
+      },
+    },
 
     icon: {
       prefix: "fa6-solid:",
