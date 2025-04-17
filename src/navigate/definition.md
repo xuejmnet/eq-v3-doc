@@ -129,7 +129,7 @@ public class SysUserExtra implements ProxyEntityAvailable<SysUserExtra , SysUser
 
 ::: tabs
 @tab 关系图
-<img :src="$withBase('/images/ban_card_user.svg')">
+<img :src="$withBase('/images/bank_card_user_book.svg')">
 
 @tab SysUser
 ```java
@@ -199,6 +199,37 @@ public class SysBankCard implements ProxyEntityAvailable<SysBankCard , SysBankCa
     private SysUser user;
 }
 
+
+```
+
+@tab SysBank
+```java
+
+@Table("t_bank")
+@EntityProxy
+@Data
+@FieldNameConstants
+@EasyAlias("bank")
+public class SysBank implements ProxyEntityAvailable<SysBank, SysBankProxy> {
+    @Column(primaryKey = true)
+    private String id;
+    /**
+     * 银行名称
+     */
+    private String name;
+    /**
+     * 成立时间
+     */
+    private LocalDateTime createTime;
+
+    /**
+     * 拥有的银行卡
+     */
+    @Navigate(value = RelationTypeEnum.OneToMany,
+            selfProperty = {"id"},
+            targetProperty = {"bankId"})
+    private List<SysBankCard> bankCards;
+}
 
 ```
 

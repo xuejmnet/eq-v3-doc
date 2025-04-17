@@ -1,6 +1,6 @@
 ---
-title: 关联查询 Include
-order: 170
+title: 结构化对象
+order: 10
 ---
 
 `easy-query` 1.2.1+ 支持关联查询,支持多级关联查询,并且只支持first和tolist两个返回方法,支持vo对象返回支持`include`追加追踪、禁止、逻辑删除、where过滤、order、limit等一系列处理，但是返回结果必须是数据库对象实例(include方法内部),如果需要额外字段返回可以使用`columnInclude`/`columnIncludeMany`自定义返回
@@ -114,148 +114,59 @@ List<SchoolStudent> list2 = easyEntityQuery.queryable(SchoolStudent.class)
 
 这次的内容主要在[这个连接中](https://github.com/dromara/easy-query/issues/302)
 
-首先我们需要替换`RelationValueFactory`这个接口
+首先我们需要替换`RelationNullValueValidator`这个接口
 
 方法  | 作用
 --- | --- 
-RelationValue | 创建一个可比较的关联值
+isNullValue | 返回这个对象是否是空值需要被忽略
 
-我们再来看其默认实现`DefaultRelationValueFactory`
+我们再来看其默认实现`DefaultRelationNullValueValidator`
 ```java
-
-public class DefaultRelationValueFactory implements RelationValueFactory{
-
+public class DefaultRelationNullValueValidator implements RelationNullValueValidator {
     @Override
-    public RelationValue createRelationValue(List<Object> values) {
-        if(values.size()==1){
-            return new SingleRelationValue(values.get(0));
+    public boolean isNullValue(Object value) {
+        if (Objects.isNull(value)) {
+            return true;
         }
-        return new MultiRelationValue(values);
+        if (value instanceof String) {
+            if (EasyStringUtil.isBlank((String) value)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
+
 ```
-
-### RelationValue
-其中`RelationValue`的返回是我们需要注意的
-
-方法  | 作用
---- | --- 
-isNull | 用来判断这次的关系值是否可以用来作为下一次的查询条件返回true表示需要被过滤
-getValues | 返回其内部的值
-
-实现  | 作用
---- | --- 
-SingleRelationValue | 当且仅当selfProperty为长度为1或者空(主键情况)的数组时才会使用当前对象，比如:selfProperty=["id"]那么value为id的值
-MultiRelationValue | 当且仅当selfProperty为长度大于1的数组时才会使用当前对象，比如:selfProperty=["id","username"]那么values[0]为id的值,values[1]为username的值
-
 ### 替换
-我们需要对`RelationValue`的两个方法进行替换成我们自己的
+我们需要对`RelationNullValueValidator`的`isNullValue`方法进行替换成我们自己的
 ```java
-//用于单值比较
-public class MySingleRelationValue implements RelationValue {
-    protected final Object value;
 
-    public MySingleRelationValue(Object value) {
-        this.value = value;
-    }
-
+public class MyRelationNullValueValidator implements RelationNullValueValidator {
     @Override
-    public List<Object> getValues() {
-        return Collections.singletonList(value);
-    }
-
-    @Override
-    public boolean isNull() {
-        //横岗也需要被过滤
-        return Objects.isNull(value) || Objects.equals("-", value);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MySingleRelationValue that = (MySingleRelationValue) o;
-        return Objects.equals(value, that.value);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(value);
-    }
-
-    @Override
-    public String toString() {
-        return "SingleRelationValue{" +
-                "value=" + value +
-                '}';
-    }
-}
-
-
-
-//用于多值比较
-public class MyMultiRelationValue implements RelationValue {
-    protected final List<Object> values;
-
-    public MyMultiRelationValue(List<Object> values) {
-        this.values = values;
-    }
-
-    @Override
-    public List<Object> getValues() {
-        return values;
-    }
-
-    /**
-     * 当且仅当values中的有任意元素是null时返回true
-     * 如果你认为例子中的id或者username有其他不符合就可以直接忽略可以使用重写该类来替换掉默认行为
-     *
-     * @return
-     */
-    @Override
-    public boolean isNull() {
-        return EasyCollectionUtil.any(values, o -> Objects.isNull(o) || Objects.equals("-", o));
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MyMultiRelationValue that = (MyMultiRelationValue) o;
-        return Objects.equals(values, that.values);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(values);
-    }
-
-    @Override
-    public String toString() {
-        return "MultiRelationValue{" +
-                "values=" + values +
-                '}';
-    }
-}
-
-
-public class MyDefaultRelationValueFactory implements RelationValueFactory {
-
-    @Override
-    public RelationValue createRelationValue(List<Object> values) {
-        if (values.size() == 1) {
-            return new MySingleRelationValue(values.get(0));
+    public boolean isNullValue(Object value) {
+        if (Objects.isNull(value)) {
+            return true;
         }
-        return new MyMultiRelationValue(values);
+        if (value instanceof String) {
+            if (EasyStringUtil.isBlank((String) value)) {
+                return true;
+            }
+            if (Objects.equals("-", value) || Objects.equals("/", value)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
+
 
 
 ```
 
 ### 最后替换服务即可
 ```java
-replaceService(RelationValueFactory.class, MyDefaultRelationValueFactory.class)
+replaceService(RelationNullValueValidator.class, MyRelationNullValueValidator.class)
 ```
 
 

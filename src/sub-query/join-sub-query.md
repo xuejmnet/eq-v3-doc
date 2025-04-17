@@ -1,6 +1,6 @@
 ---
 title: join子查询
-order: 5
+order: 6
 ---
 
 `join子查询`在大部分的OLAP中都会遇到常见的就是`JOIN GROUP 视图`虽然大部分的`JOIN GROUP`都可以转换成`隐式GROUP`但是免不了一些特殊的情况
@@ -12,7 +12,7 @@ order: 5
 
 ::: tabs
 @tab 关系图
-<img :src="$withBase('/images/ban_card_user.svg')">
+<img :src="$withBase('/images/bank_card_user.svg')">
 
 @tab SysUser
 ```java

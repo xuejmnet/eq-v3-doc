@@ -23,6 +23,12 @@ export const zhSidebar = sidebar({
       children: "structure",
     },
     {
+      text: "插件指南",
+      prefix: "plugin/",
+      collapsible:true,
+      children: "structure",
+    },
+    {
       text: "crud功能模块",
       prefix: "ability/",
       collapsible:true,
@@ -61,8 +67,14 @@ export const zhSidebar = sidebar({
       ],
     },
     {
-      text: "导航属性🔥🔥🔥",
+      text: "导航属性🔥",
       prefix: "navigate/",
+      collapsible:true,
+      children: "structure",
+    },
+    {
+      text: "关联查询🔥🔥",
+      prefix: "include/",
       collapsible:true,
       children: "structure",
     },

@@ -1,6 +1,6 @@
 ---
 title: where子查询
-order: 2
+order: 3
 ---
 
 `where子查询`区别于`select子查询`生成的必须是执行片段而不是类型片段,如果在where内部使用类型片段那么该片段将不会生效
@@ -21,7 +21,7 @@ List<SysUser> cards = easyEntityQuery.queryable(SysUser.class)
 
 ::: tabs
 @tab 关系图
-<img :src="$withBase('/images/ban_card_user.svg')">
+<img :src="$withBase('/images/bank_card_user.svg')">
 
 @tab SysUser
 ```java

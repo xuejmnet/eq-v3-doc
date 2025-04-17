@@ -1,5 +1,5 @@
 ---
-title: select子查询
+title: select子查询1
 order: 1
 ---
 
@@ -15,7 +15,7 @@ order: 1
 
 ::: tabs
 @tab 关系图
-<img :src="$withBase('/images/ban_card_user.svg')">
+<img :src="$withBase('/images/bank_card_user.svg')">
 
 @tab SysUser
 ```java

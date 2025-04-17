@@ -18,7 +18,8 @@ List<Draft3<BigDecimal, BigDecimal, BigDecimal>> blogs = easyEntityQuery.queryab
         .select(t_blog -> Select.DRAFT.of(
                 t_blog.score().avg(),
                 t_blog.score().avg(true),
-                t_blog.score().avg(true).filter(() -> {
+                //只统计标题带[小说]字样的平均分数
+                t_blog.score().avg().filter(() -> {
                     t_blog.title().like("小说");
                 })
         )).toList();
@@ -41,7 +42,8 @@ List<Draft4<Number, Integer, Long, BigDecimal>> blogs = easyEntityQuery.queryabl
                 t_blog.score().sum(),
                 t_blog.score().sumInt(true),
                 t_blog.score().sumLong(true),
-                t_blog.score().sumBigDecimal(true).filter(() -> {
+                //只统计标题带[小说]字样的总分数
+                t_blog.score().sumBigDecimal().filter(() -> {
                     t_blog.title().like("小说");
                 })
         )).toList();

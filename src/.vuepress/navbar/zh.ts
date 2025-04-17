@@ -5,7 +5,24 @@ export const zhNavbar = navbar([
   // "/startup/",
   // "/portfolio",
   "/demo/",
-  "/discussions"
+  "/discussions",
+  {
+    text: "项目地址",
+    icon: "github",
+    children:[
+      {
+        text: "github",
+        icon: "github",
+        link: "https://github.com/xuejmnet/easy-query"
+      },
+
+      {
+        text: "gitee",
+        icon: "gitee",
+        link: "https://gitee.com/xuejm/easy-query"
+      }
+    ]
+  }
   // {
   //   text: "Guide",
   //   icon: "lightbulb",

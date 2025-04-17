@@ -4,8 +4,8 @@ icon: house
 title: 项目主页
 heroFullScreen: true
 heroImage: /images/logo.svg
-bgImage: https://theme-hope-assets.vuejs.press/bg/6-light.svg
-bgImageDark: https://theme-hope-assets.vuejs.press/bg/6-dark.svg
+bgImage: /images/bg/6-light.svg
+bgImageDark: /images/bg/6-dark.svg
 bgImageStyle:
   background-attachment: fixed
 heroText: easy-query
@@ -22,22 +22,22 @@ actions:
 highlights:
   # - header: 优雅的dsl
   #   # image: /assets/image/features.svg
-  #   # bgImage: https://theme-hope-assets.vuejs.press/bg/1-light.svg
-  #   # bgImageDark: https://theme-hope-assets.vuejs.press/bg/1-dark.svg
+  #   # bgImage: /images/bg/1-light.svg
+  #   # bgImageDark: /images/bg/1-dark.svg
   #   # image: https://jowayyoung.github.io/static/bruce/feature.svg
-  #   # bgImage: https://theme-hope-assets.vuejs.press/bg/9-light.svg
-  #   # bgImageDark: https://theme-hope-assets.vuejs.press/bg/9-dark.svg
+  #   # bgImage: /images/bg/9-light.svg
+  #   # bgImageDark: /images/bg/9-dark.svg
   #   image: https://jowayyoung.github.io/static/bruce/summary.svg
-  #   bgImage: https://theme-hope-assets.vuejs.press/bg/3-light.svg
-  #   bgImageDark: https://theme-hope-assets.vuejs.press/bg/3-dark.svg
+  #   bgImage: /images/bg/3-light.svg
+  #   bgImageDark: /images/bg/3-dark.svg
   #   highlights:
   #     - title: 123
 
 
   - header: 隐式查询
     image: /assets/image/features.svg
-    bgImage: https://theme-hope-assets.vuejs.press/bg/1-light.svg
-    bgImageDark: https://theme-hope-assets.vuejs.press/bg/1-dark.svg
+    bgImage: /easy-query-doc/images/bg/1-light.svg
+    bgImageDark: /easy-query-doc/images/bg/1-dark.svg
     highlights:
       - title: 隐式join
         icon: network-wired
@@ -67,8 +67,8 @@ highlights:
   - header: 功能
     description: 一套完整的针对jdbc的关系型数据库查询解决方案
     # image: https://jowayyoung.github.io/static/bruce/scheme.svg
-    bgImage: https://theme-hope-assets.vuejs.press/bg/2-light.svg
-    bgImageDark: https://theme-hope-assets.vuejs.press/bg/2-dark.svg
+    bgImage: /easy-query-doc/images/bg/2-light.svg
+    bgImageDark: /easy-query-doc/images/bg/2-dark.svg
     bgImageStyle:
       background-repeat: repeat
       background-size: initial
@@ -177,8 +177,8 @@ highlights:
   # - header: 特性
   #   # description: 完整无障碍支持的可定制外观
   #   image: https://jowayyoung.github.io/static/bruce/feature.svg
-  #   bgImage: https://theme-hope-assets.vuejs.press/bg/9-light.svg
-  #   bgImageDark: https://theme-hope-assets.vuejs.press/bg/9-dark.svg
+  #   bgImage: /images/bg/9-light.svg
+  #   bgImageDark: /images/bg/9-dark.svg
   #   highlights:
   #     - title: 📦 开箱即用
   #       # icon: circle-half-stroke
@@ -200,8 +200,8 @@ highlights:
   - header: 结构化DTO
     # description: 一个完美的响应式布局。
     image: https://jowayyoung.github.io/static/bruce/install.svg
-    bgImage: https://theme-hope-assets.vuejs.press/bg/5-light.svg
-    bgImageDark: https://theme-hope-assets.vuejs.press/bg/5-dark.svg
+    bgImage: /easy-query-doc/images/bg/5-light.svg
+    bgImageDark: /easy-query-doc/images/bg/5-dark.svg
     highlights:
       - title: 创建DTO
         icon: window-maximize
@@ -216,8 +216,8 @@ highlights:
   # - header: 博客
   #   description: 通过主题创建个人博客
   #   image: /assets/image/blog.svg
-  #   bgImage: https://theme-hope-assets.vuejs.press/bg/5-light.svg
-  #   bgImageDark: https://theme-hope-assets.vuejs.press/bg/5-dark.svg
+  #   bgImage: /images/bg/5-light.svg
+  #   bgImageDark: /images/bg/5-dark.svg
   #   highlights:
   #     - title: 博客功能
   #       icon: blog
@@ -242,8 +242,8 @@ highlights:
   - header: 计算属性
     description: 一种特殊的属性列与常规的表的列不同他是一种通过表的列或者更加复杂的函数得出的属性
     image: /assets/image/advanced.svg
-    bgImage: https://theme-hope-assets.vuejs.press/bg/4-light.svg
-    bgImageDark: https://theme-hope-assets.vuejs.press/bg/4-dark.svg
+    bgImage: /easy-query-doc/images/bg/4-light.svg
+    bgImageDark: /easy-query-doc/images/bg/4-dark.svg
     highlights:
       - title: json计算属性
         icon: dumbbell
@@ -274,8 +274,8 @@ highlights:
   - header: 联系我们
     # description: 通过主题创建个人博客
     image: /assets/image/blog.svg
-    bgImage: https://theme-hope-assets.vuejs.press/bg/5-light.svg
-    bgImageDark: https://theme-hope-assets.vuejs.press/bg/5-dark.svg
+    bgImage: /easy-query-doc/images/bg/5-light.svg
+    bgImageDark: /easy-query-doc/images/bg/5-dark.svg
     highlights:
       - title: 博客功能
         icon: blog
