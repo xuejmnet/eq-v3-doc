@@ -312,7 +312,7 @@ List<SysBankDTO> list = easyEntityQuery.queryable(SysBank.class)
         t.`bank_id` IN ('1', '2', '3')
 ```
 @tab t_sys_user SQL
-```java
+```sql
 
     SELECT
         t.`id`,
@@ -342,6 +342,217 @@ List<SysBankDTO> list = easyEntityQuery.queryable(SysBank.class)
             ON t6.`uid` = t.`id` 
     WHERE
         t.`id` IN ('u1', 'u2')
+```
+
+:::
+
+```json
+[{
+	"bankCards": [{
+		"bankId": "1",
+		"code": "123",
+		"id": "bc1",
+		"openTime": "2000-01-02 00:00:00",
+		"type": "储蓄卡",
+		"uid": "u1",
+		"user": {
+			"age": 22,
+			"bookCount": 4,
+			"bookName": "b2book",
+			"bookPrice": 11.00,
+			"createTime": "2012-01-01 00:00:00",
+			"id": "u1",
+			"name": "用户1",
+			"phone": "123"
+		}
+	}, {
+		"bankId": "1",
+		"code": "1234",
+		"id": "bc2",
+		"openTime": "2000-01-02 00:00:00",
+		"type": "信用卡",
+		"uid": "u1",
+		"user": {
+			"age": 22,
+			"bookCount": 4,
+			"bookName": "b2book",
+			"bookPrice": 11.00,
+			"createTime": "2012-01-01 00:00:00",
+			"id": "u1",
+			"name": "用户1",
+			"phone": "123"
+		}
+	}, {
+		"bankId": "1",
+		"code": "1235",
+		"id": "bc3",
+		"openTime": "2000-01-02 00:00:00",
+		"type": "信用卡",
+		"uid": "u2",
+		"user": {
+			"age": 23,
+			"bookCount": 2,
+			"bookName": "b3book",
+			"bookPrice": 9.90,
+			"createTime": "2012-01-01 00:00:00",
+			"id": "u2",
+			"name": "用户2",
+			"phone": "1234"
+		}
+	}],
+	"createTime": "2000-01-01 00:00:00",
+	"id": "1",
+	"name": "工商银行"
+}, {
+	"bankCards": [{
+		"bankId": "2",
+		"code": "1236",
+		"id": "bc4",
+		"openTime": "2001-01-02 00:00:00",
+		"type": "储蓄卡",
+		"uid": "u1",
+		"user": {
+			"age": 22,
+			"bookCount": 4,
+			"bookName": "b2book",
+			"bookPrice": 11.00,
+			"createTime": "2012-01-01 00:00:00",
+			"id": "u1",
+			"name": "用户1",
+			"phone": "123"
+		}
+	}, {
+		"bankId": "2",
+		"code": "1237",
+		"id": "bc5",
+		"openTime": "2001-01-02 00:00:00",
+		"type": "储蓄卡",
+		"uid": "",
+		"user": null
+	}],
+	"createTime": "2001-01-01 00:00:00",
+	"id": "2",
+	"name": "建设银行"
+}, {
+	"bankCards": [],
+	"createTime": "2002-01-01 00:00:00",
+	"id": "3",
+	"name": "招商银行"
+}]
+```
+
+
+## 参数传递
+```java
+
+String arg = "myArg";
+List<SysBankDTO> list = easyEntityQuery.queryable(SysBank.class)
+        .configure(o -> {
+            o.setConfigureArgument(arg);
+        })
+        .selectAutoInclude(SysBankDTO.class)
+        .toList();
+```
+### 修改InternalUser
+其中select也可以获取传递的参数方便用户动态dsl
+```java
+
+
+    /**
+     * {@link com.easy.query.test.mysql8.entity.bank.SysUser }
+     */
+    @Data
+    @FieldNameConstants
+    public static class InternalUser {
+        private static final ExtraAutoIncludeConfigure EXTRA_AUTO_INCLUDE_CONFIGURE= SysUserProxy.TABLE.EXTRA_AUTO_INCLUDE_CONFIGURE()
+                .configure(query->query.subQueryToGroupJoin(u->u.userBooks()))//配置表达式为隐式子查询
+                .where(o -> {
+                    ConfigureArgument configureArgument = o.getEntitySQLContext().getExpressionContext().getConfigureArgument();
+                    String arg = configureArgument.getTypeArg();
+                    o.name().ne(arg);
+                })
+                .select(u-> Select.of(
+                        u.userBooks().count().as(Fields.bookCount),
+                        u.userBooks().orderBy(book->book.price().desc()).firstElement().name().as(Fields.bookName),
+                        u.userBooks().orderBy(book->book.price().desc()).firstElement().price().as(Fields.bookPrice)
+                ));
+
+        private String id;
+        private String name;
+        private String phone;
+        private Integer age;
+        private LocalDateTime createTime;
+
+        @SuppressWarnings("EasyQueryFieldMissMatch")
+        private Long bookCount;
+        @SuppressWarnings("EasyQueryFieldMissMatch")
+        private String bookName;
+        @SuppressWarnings("EasyQueryFieldMissMatch")
+        private BigDecimal bookPrice;
+
+    }
+
+```
+### 最终生成的SQL
+
+::: tabs
+@tab t_bank SQL
+```sql
+
+    SELECT
+        t.`id`,
+        t.`name`,
+        t.`create_time` 
+    FROM
+        `t_bank` t
+```
+@tab t_bank_card SQL
+```sql
+
+    SELECT
+        t.`id`,
+        t.`uid`,
+        t.`code`,
+        t.`type`,
+        t.`bank_id`,
+        t.`open_time` 
+    FROM
+        `t_bank_card` t 
+    WHERE
+        t.`bank_id` IN ('1', '2', '3')
+```
+@tab t_sys_user SQL
+```sql
+
+    SELECT
+        t.`id`,
+        t.`name`,
+        t.`phone`,
+        t.`age`,
+        t.`create_time`,
+        IFNULL(t2.`__count2__`, 0) AS `book_count`,
+        t6.`name` AS `book_name`,
+        t6.`price` AS `book_price` 
+    FROM
+        `t_sys_user` t 
+    LEFT JOIN
+        (SELECT
+            t1.`uid` AS `uid`, COUNT(*) AS `__count2__` FROM `t_sys_user_book` t1 
+        GROUP BY
+            t1.`uid`) t2 
+            ON t2.`uid` = t.`id` 
+    LEFT JOIN
+        (SELECT
+            t4.`id` AS `id`, t4.`name` AS `name`, t4.`uid` AS `uid`, t4.`price` AS `price` 
+            FROM (SELECT
+                t3.`id`, t3.`name`, t3.`uid`, t3.`price`, (ROW_NUMBER() OVER (PARTITION BY t3.`uid` ORDER BY t3.`price` DESC)) AS `__row__` 
+                FROM `t_sys_user_book` t3) t4 
+        WHERE
+            t4.`__row__` = 1) t6 
+            ON t6.`uid` = t.`id` 
+    WHERE
+        t.`name` <> 'myArg' 
+        AND t.`id` IN ('u1', 'u2')
 ```
 
 :::

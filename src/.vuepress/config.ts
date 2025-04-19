@@ -1,6 +1,5 @@
 import { defineUserConfig } from "vuepress";
 import vuepressPluginTypedjs2 from "vuepress-plugin-typedjs2";
-// import { docsearchPlugin } from '@vuepress/plugin-docsearch'
 
 import theme from "./theme.js";
 
